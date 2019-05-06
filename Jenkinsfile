@@ -18,7 +18,7 @@ stages{
             post {
                 success {
                     echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
+                    archiveArtifacts artifacts: 'c:\Users\Zsolt_Nyerges\Downloads\apache-tomcat-8.5.40\webapps\*.war'
                 }
             }
         }
@@ -27,13 +27,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        sh "scp -i  *c:\Users\Zsolt_Nyerges\Downloads\AWS\Keypairs\tomcat-demo.pem **/target/*.war centos@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
+                        sh "scp -i  *c:\Users\Zsolt_Nyerges\Downloads\AWS\Keypairs\tomcat-demo.pem c:\Users\Zsolt_Nyerges\Downloads\apache-tomcat-8.5.40\webapps\*.war centos@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        sh "scp -i c:\Users\Zsolt_Nyerges\Downloads\AWS\Keypairs\tomcat-demo.pem **/target/*.war centos@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
+                        sh "scp -i c:\Users\Zsolt_Nyerges\Downloads\AWS\Keypairs\tomcat-demo.pem c:\Users\Zsolt_Nyerges\Downloads\apache-tomcat-8.5.40\webapps\*.war centos@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
                     }
                 }
             }
